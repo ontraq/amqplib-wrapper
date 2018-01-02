@@ -1,0 +1,23 @@
+{
+    "name": "@HealthFirst/amqplib-wrapper",
+    "version": "0.1.0",
+    "description": "This is a very basic amqplib wrapper designed for our microservice framework.",
+    "main": "index.js",
+    "directories": {
+        "example": "example"
+    },
+    "scripts": {
+        "test": "ava --verbose"
+    },
+    "author": "Steve Preston",
+    "license": "BSD-3-Clause",
+    "dependencies": {
+        "amqplib": "^0.5.2"
+    },
+    "devDependencies": {
+        "amqplib-mocks": "^1.1.1",
+        "app-root-path": "^2.0.1",
+        "ava": "^0.24.0",
+        "proxyquire": "^1.8.0"
+    }
+}
