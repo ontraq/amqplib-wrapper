@@ -1,19 +1,20 @@
-const appRoot = require('app-root-path');
-const BusinessLogic = require(appRoot + "/businessLogic/credit-manager");
-
-const mqNames = require(appRoot + "/mq-names");
+const BusinessLogic = {
+    consumeCreditCheckRequest: (message) => {
+        console.log(message);
+    }
+};
 
 module.exports = {
     exchanges: {
         CREDIT_CHECK_REQUESTED: {
-            name: mqNames.CREDIT_CHECK_EXCHANGE,
+            name: "credit.check.exchange",
             type: "topic",
             options: {
                 durable: true
             }
         },
         CREDIT_CHECK_PROCESSED: {
-            name: mqNames.CREDIT_VALIDATED_EXCHANGE,
+            name: "credit.validated.exchange",
             type: "topic",
             options: {
                 durable: true
@@ -22,12 +23,12 @@ module.exports = {
     },
     queues: {
         CREDIT_CHECK_REQUESTED: {
-            name: mqNames.CREDIT_CHECK_QUEUE,
+            name: "credit.check",
             bindings: [
                 {
-                    destination: mqNames.CREDIT_CHECK_QUEUE,
-                    source: mqNames.CREDIT_CHECK_EXCHANGE,
-                    pattern: mqNames.CREDIT_CHECK_QUEUE 
+                    destination: "credit.check",
+                    source: "credit.check.exchange",
+                    pattern: "credit.check" 
                 }
             ],
             options: {
@@ -41,18 +42,17 @@ module.exports = {
             ]
         },
         CREDIT_VALIDATED: {
-            name: mqNames.CREDIT_VALIDATED_QUEUE,
+            name: "credit.validated",
             bindings: [
                 {
-                    destination: mqNames.CREDIT_VALIDATED_QUEUE,
-                    source: mqNames.CREDIT_VALIDATED_EXCHANGE,
-                    pattern: mqNames.CREDIT_VALIDATED_QUEUE 
+                    destination: "credit.validated",
+                    source: "credit.validated.exchange",
+                    pattern: "credit.validated"
                 }
             ],
             options: {
                 durable: true
-            },
-
+            }
         }
     }
 };
