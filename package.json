@@ -3,6 +3,10 @@
     "version": "0.2.2",
     "description": "This is a very basic amqplib wrapper designed for our microservice framework.",
     "main": "index.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ontraq/amqplib-wrapper"
+    },
     "directories": {
         "example": "example"
     },
