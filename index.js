@@ -21,10 +21,15 @@ const getChannel = async function(cxn, useConfirm = true) {
 
 //Add error handling for when exchange/queue setup does not go as planned. This generally means that we've attempted to assert an exchange/queue that already exists and is using different options than the ones being passed here.
 const initExchanges = async function(channel, exchanges) {
+    //assert all exchanges into existence BEFORE creating bindings
     await Object.keys(exchanges).forEach(async (key) => {
         const exchange = exchanges[key];
         await channel.assertExchange(exchange.name, exchange.type, exchange.options);
 
+    });
+
+    await Object.keys(exchanges).forEach(async (key) => {
+        const exchange = exchanges[key];
         if (exchange.bindings) {
             initBindings(channel, "bindExchange", exchange.bindings);
         }
