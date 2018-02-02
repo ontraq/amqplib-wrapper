@@ -4,6 +4,21 @@ const amqp = require('amqplib');
 
 let connection = null;
 
+const sendResponse = async function sendResponse(exchange, routingKey, response, options) {
+    try {
+        const cxn = await mq.getConnection();
+        const channel = await mq.getChannel(cxn);
+        await mq.publishObj(channel, exchange, routingKey, response, options);
+        await channel.close();
+
+        return true;
+    } catch (err) {
+        console.error(err.message);
+    }
+
+    return false;
+};
+
 const getChannel = async function(cxn, useConfirm = true) {
     let channel = useConfirm ? await cxn.createConfirmChannel() : await cxn.createChannel();
         
@@ -101,8 +116,9 @@ const getConnection = async function(url = null) {
 }
 
 module.exports = {
-    getConnection: getConnection,
-    getChannel: getChannel,
-    init: init,
-    publishObj: publishObj
+    getConnection,
+    getChannel,
+    init,
+    publishObj,
+    sendResponse,
 };
