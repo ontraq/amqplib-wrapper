@@ -1,6 +1,6 @@
 {
     "name": "@healthfirst/amqplib-wrapper",
-    "version": "0.2.4",
+    "version": "0.3.0",
     "description": "This is a very basic amqplib wrapper designed for our microservice framework.",
     "main": "index.js",
     "repository": {
